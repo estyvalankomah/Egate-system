@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronic Gate</title>
+</head>
+<body>
+   <div id="container">
+       <div id="top-bar">
+           <h1>ELECTRONIC GATE: MAIN GATE</h1>
+       </div>
+       <div id="lower-container">
+            <div id="video-container">
+                <h3>Video Feed</h3>
+                <div id="video-div">
+                    <img src="{{ url_for('video_feed') }}">
+                </div>
+            </div>
+            <div id="results-container">
+                <div id="results-top">
+                    <div id="top-right">
+                        <p><b>Booth Name: Booth A</b></p>
+                        <p><b>Attendant Name: Kofi Badu</b></p>
+                        <p><b>Car count: 86</b></p>
+                    </div>
+                </div>
+                <div id="results-bottom">
+                    <h3>Detected Plate</h3>
+                    <div id="mini-container">
+                        <div id="plate-container">
+                            <div id="plate"></div>
+                            {{ reg_number }}
+                        </div>
+                        <div id="search-container">
+                            <small>Extracted wrong registration number?</small>
+                            <form action="">
+                                <input type="text" placeholder="Search for right registration number" name="search">
+                                <button>Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="results">
+                        <table>
+                            {% block content%}
+                                {% for result in results %}
+                                <tr>
+                                    <td><b>Name</b></td>
+                                    <td class="hide-me">{{result.first_name}}</td>
+                                    <!-- <td>Emannuel Baidoo</td> -->
+                                </tr>
+                                <tr>
+                                    <td><b>Status</b></td>
+                                    <td class="hide-me">{{result.last_name}}</td>
+                                    <!-- <td>Student</td> -->
+                                </tr>
+                                <tr>
+                                    <td><b>Expiry Date</b></td>
+                                    <td class="hide-me">{{result.subscription_expiration}}</td>
+                                    <!-- <td>2021-12-02</td> -->
+                                </tr>
+                                {% endfor %}
+                            {% endblock %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+       </div>
+   </div> 
+</body>
+</html>
